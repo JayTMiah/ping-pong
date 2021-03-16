@@ -1,4 +1,4 @@
-const App = ({ player1, player2, handlePlayer1, handlePlayer2, resetScores, server }) => (
+const App = ({ player1, player2, handlePlayer1, handlePlayer2, resetScores, server, winner }) => (
     <>
         {/* header */}
         <header className="jumbotron mt-4 mb-0">
@@ -33,8 +33,8 @@ const App = ({ player1, player2, handlePlayer1, handlePlayer2, resetScores, serv
         </div>
 
         { /* winner message */}
-        <h2 className="alert alert-success">Player {/* winning player here */} wins!</h2>
-
+        <h2 className="alert alert-success">Player { winner } wins!</h2>
+{console.log(winner)}
         <hr />
 
         { /* reset button */}

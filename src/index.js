@@ -8,7 +8,8 @@ import { createStore } from "redux";
 const initial = { // value state has when app first loads. properties (keys) will stay the same, but the values will change over time.
   player1: 0, 
   player2: 0,
-  server: 1
+  server: 1,
+  winner: 0
   };
 
 const playerOneScore = (state) => {
@@ -30,9 +31,16 @@ const servingPlayer = (state) => {
       return {...state, server: 1}
     }
   }
-
-
   return state;
+}
+
+const youWin = (state) => {
+  if(state.player1  === 21){
+    return {...state, winner: 1}
+  } else if(state.player2 === 21){
+      return {...state, winner: 2}
+    }
+    return state;
 }
 
 const reducer = (state, action) => { // function that takes current state - which is what the store is keeping track of. And an action that updates the state according to the action. Returning a new state.
@@ -40,11 +48,11 @@ const reducer = (state, action) => { // function that takes current state - whic
   switch (action.type) {
     
     case "P1SCORE": 
-      return servingPlayer(playerOneScore(state)); // updates player1 score
+      return youWin(servingPlayer(playerOneScore(state))); // updates player1 score
 
     case "P2SCORE": 
-      return servingPlayer(playerTwoScore(state));
-      
+      return youWin(servingPlayer(playerTwoScore(state)));
+
     case "RESET_SCORES": return initial; // resets score
 
     default: return state;
@@ -63,6 +71,7 @@ const render = () => {
         player1={ state.player1 } 
         player2={ state.player2 }
         server={ state.server }
+        winner={ state.winner }
         handlePlayer1={ () => {
           store.dispatch({ type: "P1SCORE" });
         }}
@@ -82,6 +91,3 @@ const render = () => {
 store.subscribe(render);
 
 render();
-
-
-
