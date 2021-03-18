@@ -1,44 +1,35 @@
+import Header from './components/Header.js'
+import Winner from './components/Winner.js'
+import Reset from './components/Reset.js'
+import Player from './components/Player.js'
+
 const App = ({ player1, player2, handlePlayer1, handlePlayer2, resetScores, server, winner }) => (
     <>
         {/* header */}
-        <header className="jumbotron mt-4 mb-0">
-            <h1>PongPing</h1>
-        </header>
+        <Header/>
 
         {/* scores */}
         <div className="row mb-4">
-            <div className="col-md-6 mt-4">
-                <div className={"card text-center " + (server === 1 ? "bg-dark text-white" : '' ) }>
-                    <h5 className="card-header">Player 1</h5>
-                    <div className="card-body">
-                        <p className="card-text display-1">{ player1 }</p>
-                    </div>
-                    <div className="card-footer">
-                        <button className="form-control btn btn-success" onClick={ handlePlayer1 }>+</button>
-                    </div>
-                </div>
-            </div>
+            <Player 
+                playerNumber={ 1 }
+                handlePlayer={ handlePlayer1 }
+                scores={ player1 }
+                servingPlayer={ server }
+            />
 
-            <div className="col-md-6 mt-4">
-                <div className={"card text-center " + (server === 2 ? "bg-dark text-white" : '' ) }>
-                    <h5 className="card-header">Player 2</h5>
-                    <div className="card-body">
-                        <p className="card-text display-1">{ player2 }</p>
-                    </div>
-                    <div className="card-footer">
-                        <button className="form-control btn btn-success" onClick={ handlePlayer2 }>+</button>
-                    </div>
-                </div>
-            </div>
+            <Player 
+                playerNumber={ 2 }
+                handlePlayer={ handlePlayer2 }
+                scores={ player2 }
+                servingPlayer={ server }
+            />
         </div>
 
         { /* winner message */}
-        <h2 className="alert alert-success">Player { winner } wins!</h2>
-{console.log(winner)}
-        <hr />
+        <Winner winner={ winner }/>
 
         { /* reset button */}
-        <button className="btn btn-danger" onClick={ resetScores }>Reset</button>
+        <Reset reset={ resetScores }/>
     </>
 );
 
